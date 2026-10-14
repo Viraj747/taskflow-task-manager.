@@ -53,7 +53,7 @@ No framework, package installation, or backend is required.
 
 ## Screenshot
 
-![TaskFlow dashboard](screenshots/dashboard.png)
+![TaskFlow dashboard](screenshot/dashboard.png)
 
 ## Data Storage
 
