@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#26347f">
+    <title>TaskFlow | Task Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <a href="#dashboard" class="brand">
+                <span class="brand-icon">✓</span>
+                <span>
+                    <strong>TaskFlow</strong>
+                    <small>Stay Organized</small>
+                </span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+                <a href="#dashboard" class="nav-link active">⌂ <span>Dashboard</span></a>
+                <a href="#tasks" class="nav-link">☷ <span>All Tasks</span></a>
+                <button type="button" class="nav-link" id="sidebar-add">⊕ <span>Add Task</span></button>
+                <a href="#tasks" class="nav-link" id="completed-link">✓ <span>Completed</span></a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <span class="settings-icon">⚙</span>
+                <span>TaskFlow Workspace</span>
+            </div>
+        </aside>
+
+        <main class="main-content" id="dashboard">
+            <header class="topbar">
+                <div class="topbar-title">
+                    <button type="button" class="menu-toggle" id="menu-toggle"
+                        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="profile">
+                    <span class="profile-avatar" aria-label="User profile">S</span>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+
+                <section class="summary-grid" aria-label="Task statistics">
+                    <article class="summary-card">
+                        <div class="summary-icon blue-icon">▤</div>
+                        <div>
+                            <p class="summary-number" id="total-tasks">0</p>
+                            <h2>Total Tasks</h2>
+                        </div>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="summary-icon red-icon">◷</div>
+                        <div>
+                            <p class="summary-number" id="pending-tasks">0</p>
+                            <h2>To Do</h2>
+                        </div>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="summary-icon orange-icon">◌</div>
+                        <div>
+                            <p class="summary-number" id="progress-tasks">0</p>
+                            <h2>In Progress</h2>
+                        </div>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="summary-icon green-icon">✓</div>
+                        <div>
+                            <p class="summary-number" id="completed-tasks">0</p>
+                            <h2>Completed</h2>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="progress-section" aria-label="Overall task progress">
+                    <div class="progress-heading">
+                        <h2>Overall Progress</h2>
+                        <strong id="progress-percentage">0% Completed</strong>
+                    </div>
+                    <div class="progress-track" id="progress-track"
+                        role="progressbar" aria-label="Task completion"
+                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p id="progress-count">0 of 0 tasks</p>
+                </section>
+
+                <section class="task-toolbar" aria-label="Task search and filters">
+                    <button type="button" class="primary-button" id="add-task-button">
+                        <span aria-hidden="true">＋</span> Add New Task
+                    </button>
+
+                    <label class="search-box">
+                        <span aria-hidden="true">⌕</span>
+                        <input type="search" id="search-input"
+                            placeholder="Search tasks..." aria-label="Search tasks by title">
+                    </label>
+
+                    <select id="status-filter" aria-label="Filter by status">
+                        <option value="all">All Status</option>
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+
+                    <select id="priority-filter" aria-label="Filter by priority">
+                        <option value="all">All Priority</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </section>
+
+                <section class="task-form-section" id="task-form-section" hidden>
+                    <div class="section-heading">
+                        <div>
+                            <h2 id="form-heading">Add New Task</h2>
+                            <p>Enter the details of your task below.</p>
+                        </div>
+                        <button type="button" class="icon-button" id="close-form"
+                            aria-label="Close form">✕</button>
+                    </div>
+
+                    <form id="task-form" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="task-title">Task Title <span>*</span></label>
+                                <input type="text" id="task-title" maxlength="120"
+                                    placeholder="e.g. Complete project documentation" required>
+                                <small class="form-error" id="title-error"></small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="task-description">Description</label>
+                                <textarea id="task-description" rows="3" maxlength="1000"
+                                    placeholder="What needs to be done?"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="task-due-date">Due Date</label>
+                                <input type="date" id="task-due-date">
+                                <small class="form-error" id="date-error"></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="task-priority">Priority</label>
+                                <select id="task-priority">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="task-status">Status</label>
+                                <select id="task-status">
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button" id="save-task-button">
+                                Save Task
+                            </button>
+                            <button type="button" class="secondary-button" id="cancel-task-button">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="tasks-section" id="tasks">
+                    <div class="section-heading tasks-heading">
+                        <div>
+                            <h2>My Tasks</h2>
+                            <p>Manage and track your daily work.</p>
+                        </div>
+                        <span class="task-count" id="visible-task-count">0 tasks</span>
+                    </div>
+
+                    <div id="task-list" class="task-list" aria-live="polite">
+                        <div class="empty-state">
+                            <div class="empty-icon">✓</div>
+                            <h3>No tasks yet</h3>
+                            <p>Add your first task to get started.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    TaskFlow <span>•</span> Organize your work, one task at a time.
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
